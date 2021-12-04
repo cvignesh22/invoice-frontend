@@ -1,0 +1,15 @@
+.login-page  {
+    display: flex;
+}
+
+.login-img-container {
+    background-image:  url('../../assets/svg/login.svg');
+    height: 90vh;
+    /* background-repeat: no-repeat; */
+    width: 500px;
+    flex: 2;
+    background-size: cover;
+}
+.login-signin-container {
+    flex: 1;
+}
