@@ -1,0 +1,15 @@
+.invoce-editor-container {
+    padding: 30px;
+}
+.invoice-editor-general-info {
+    display: flex;
+    /* width: 100%;
+    flex-wrap: wrap;
+    justify-content: flex-end; */
+}
+.right {
+    margin-left:auto;
+}
+.invoice-editor-input-field  {
+    margin: 30px;
+}

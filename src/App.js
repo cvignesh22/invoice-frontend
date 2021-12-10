@@ -1,10 +1,20 @@
 import './App.css';
-import Login from './components/Login/Login';
+
+import { BrowserRouter } from "react-router-dom";
+import AppRoutes from './AppRoutes';
+import Navbar from './components/Navbar/Navbar';
+
+
 
 function App() {
   return (
     <div className="App">
-      <Login/>
+      {/* <Login/> */}
+      <BrowserRouter>
+      <Navbar/>
+        <AppRoutes />
+      </BrowserRouter>
+      {/* <Navbar/> */}
     </div>
   );
 }

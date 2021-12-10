@@ -1,0 +1,11 @@
+.inv-form-container , .invoice-details-pdf-container {
+    width: 50%;
+    height: 88vh;
+    overflow: auto;
+    background-color: #fff;
+    margin: 20px;
+}
+.invoice-details-container {
+    background-color: var(--body-color);
+    height: 92vh;
+}

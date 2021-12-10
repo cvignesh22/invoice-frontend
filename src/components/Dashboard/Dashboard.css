@@ -1,0 +1,31 @@
+.dashboard-contianer {
+    background-color: var(--body-color);
+    height: 92vh;
+    display: flex;
+    align-items: center;
+    /* justify-content: center; */
+    flex-direction: column;
+}
+.dashboard-menu {
+    display: flex;
+}
+.dashboard-header {
+    font-size: 1.7rem;
+    font-weight: bold;
+    margin: 2rem;
+}
+.dashboard-item{
+    font-size: 1.5rem ;
+    margin: 20px;
+    text-align: center;
+    cursor: pointer;
+}
+
+.dashboard-card-item-data {
+    display: flex;
+    align-items: center;
+}
+
+.dashboard-card-item-val {
+    padding: 0 15px;
+}
