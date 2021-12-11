@@ -28,12 +28,12 @@ export default function TableEditor() {
     // let str = ""
     const onChangeHandler = (event, setFunction  , index) => {
         event.preventDefault(); 
-        editThefuckingRow(index , setFunction)
+        editTableRow(index , setFunction)
     };
     const onSaveHandler = (event  , index) => {
         event.preventDefault();
         dataVal.current[index] =rowData.current
-        editThefuckingRow(-1  , settableVal)
+        editTableRow(-1  , settableVal)
 
 
     };
@@ -43,7 +43,7 @@ export default function TableEditor() {
     };
 
 
-    function editThefuckingRow(editindex , setFunction ) {
+    function editTableRow(editindex , setFunction ) {
         let tableData = dataVal.current.map((value, index) => {
             if (editindex !== index) {
             return (    
