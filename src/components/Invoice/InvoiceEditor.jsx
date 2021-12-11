@@ -10,11 +10,11 @@ export default function InvoiceEditor() {
             <div className="invoice-editor-general">Create / Edit Invoice</div>
             <div className="invoice-editor-general-info">
                 <div className="right">
-                    <TextField className="right  " id="standard-basic" label="Invoice No" variant="standard" />
+                    <TextField className="right  " id="standard-basic" label="Invoice No" variant="standard"  margin="dense"  />
                     <br></br>
-                    <TextField className="right " id="standard-basic" label="Invoice Date" variant="standard" />
+                    <TextField className="right " id="standard-basic" label="Invoice Date" variant="standard"   margin="dense"  />
                     <br></br>
-                    <TextField className="right " id="standard-basic" label="Invoice Status" variant="standard" />
+                    <TextField className="right " id="standard-basic" label="Invoice Status" variant="standard"  margin="dense"  />
                 </div>
 
 
