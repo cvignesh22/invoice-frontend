@@ -5,14 +5,22 @@
     align-items: center;
     /* justify-content: center; */
     flex-direction: column;
+    padding: 0 50px;
 }
 .dashboard-menu {
     display: flex;
+    /* margin: 30px; */
+    overflow: auto;
+    width: 100%;
+    /* justify-content: center; */
+    background-color: white;
+    flex-wrap: wrap;
 }
 .dashboard-header {
     font-size: 1.7rem;
     font-weight: bold;
     margin: 2rem;
+    width: 100%;
 }
 .dashboard-item{
     font-size: 1.5rem ;

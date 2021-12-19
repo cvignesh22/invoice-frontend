@@ -21,7 +21,7 @@ export default function InvoiceEditor() {
                 {/* invo no inv date inv status */}
             </div>
             <div className="invoice-editor-company-info flex">
-                <div className='invoice-editor-input-field'>
+                {/* <div className='invoice-editor-input-field'>
                     <TextField
                         id="bill-to"
                         label="Bill To"
@@ -29,11 +29,11 @@ export default function InvoiceEditor() {
                         rows={4}
                         variant="standard"
                     />
-                </div>
+                </div> */}
                 <div className='invoice-editor-input-field'>
                     <TextField
                         id="bill-from"
-                        label="Bill From"
+                        label="Company Name"
                         multiline
                         rows={4}
                         variant="standard"
@@ -69,3 +69,4 @@ desc price qty total
 </div>
 
 */
+// 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

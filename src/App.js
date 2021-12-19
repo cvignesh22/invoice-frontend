@@ -11,7 +11,7 @@ function App() {
     <div className="App">
       {/* <Login/> */}
       <BrowserRouter>
-      <Navbar/>
+        <Navbar />
         <AppRoutes />
       </BrowserRouter>
       {/* <Navbar/> */}

@@ -1,4 +1,4 @@
-import React from 'react'
+import React ,{useRef , useEffect , useState }from 'react';
 import './Dashboard.css'
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
@@ -6,20 +6,50 @@ import FactCheckIcon from '@mui/icons-material/FactCheck';
 import GppBadIcon from '@mui/icons-material/GppBad';
 import AddCircleIcon from '@mui/icons-material/AddCircle';
 import HourglassTopIcon from '@mui/icons-material/HourglassTop';
-
-
+import FormatListBulletedIcon from '@mui/icons-material/FormatListBulleted';
+import TableData from './TableData';
 export default function Dashboard() {
-    let iconClass = { color: "#fff",  fontSize: "3em" }
-    let accptBg = { backgroundColor: "#4caf50", color: "#fff", minWidth: 275,  }
-    let rejBg = { backgroundColor: "#f44336", color: "#fff", minWidth: 275 }
-    let newItm = { backgroundColor: "#2196f3", color: "#fff", minWidth: 275}
-    let pendingItm = { backgroundColor: "#fb8c00", color: "#fff", minWidth: 275}
 
 
+    let iconClass = { color: "#fff", fontSize: "3em" }
+    let accptBg = { backgroundColor: "#4caf50", color: "#fff", minWidth: "250px", borderRadius: '20px' }
+    let rejBg = { backgroundColor: "#f44336", color: "#fff", minWidth: "250px", borderRadius: '20px' }
+    let newItm = { backgroundColor: "#2196f3", color: "#fff", minWidth: "250px", borderRadius: '20px' }
+    let allItm = { backgroundColor: "#3f51b5", color: "#fff", minWidth: "250px", borderRadius: '20px' }
+    let pendingItm = { backgroundColor: "#fb8c00", color: "#fff", minWidth: "250px", borderRadius: '20px' }
+
+    const dashData = useRef([])
+    const dashCount = useRef({})
+    const count = {
+        allCount : 0,
+        pendingCount : 0,
+        acceptCount : 0,
+        rejCount : 0
+    }
+    dashCount.current = count;
+    const [tableData , setTableData] = useState()
+    function getInvoiceData() {
+        // http://localhost:8080/api/v1/invoice/all?page=0&size=2
+        let url = process.env.REACT_APP_BASE_URI + "api/v1/invoice/all?page=0&size=10"
+        fetch(url)
+            .then(response => response.json())
+            .then(data => {
+                // setdata(data);
+                dashData.current = data.content
+                console.log(data)
+                let tabdata =  <TableData data={dashData.current} />
+                setTableData(tabdata)
+            });
+    }
+    useEffect(() => {
+        // settableVal(tableData)
+        // eslint-disable-next-line
+        getInvoiceData()
+    } , [])
     return (
         <div className="dashboard-contianer">
             <div className="dashboard-header">
-                Dashboard
+                Invoice Details
             </div>
             <div className="dashboard-menu">
                 <div className='dashboard-item'>
@@ -33,13 +63,26 @@ export default function Dashboard() {
                     </Card>
                 </div>
                 <div className='dashboard-item'>
+                    <Card sx={allItm}>
+                        <CardContent>
+                            <div className="flex dashboard-card-item-data" >
+                                <div><FormatListBulletedIcon sx={iconClass} /></div>
+                                <div className='dashboard-card-item-val'>
+                                <div className="dash-all">All Invoice</div>
+                                <div>{dashCount.current.allCount}</div>
+                                </div>
+                            </div>
+                        </CardContent>
+                    </Card>
+                </div>
+                <div className='dashboard-item'>
                     <Card sx={accptBg}>
                         <CardContent>
                             <div className="flex dashboard-card-item-data" >
                                 <div><FactCheckIcon sx={iconClass} /></div>
                                 <div className='dashboard-card-item-val'>
-                                    <div sx={{padding : "15px"}}>Accepted</div>
-                                    <div>25</div>
+                                    <div sx={{ padding: "15px" }}>Accepted</div>
+                                    <div>{dashCount.current.acceptCount}</div>
                                 </div>
                             </div>
                         </CardContent>
@@ -50,9 +93,9 @@ export default function Dashboard() {
                         <CardContent>
                             <div className="flex dashboard-card-item-data" >
                                 <div><GppBadIcon sx={iconClass} /></div>
-                                <div  className='dashboard-card-item-val'>
+                                <div className='dashboard-card-item-val'>
                                     <div>Rejected</div>
-                                    <div>3</div>
+                                    <div>{dashCount.current.rejCount}</div>
                                 </div>
                             </div>
                         </CardContent>
@@ -63,18 +106,18 @@ export default function Dashboard() {
                         <CardContent>
                             <div className="flex dashboard-card-item-data" >
                                 <div><HourglassTopIcon sx={iconClass} /></div>
-                                <div  className='dashboard-card-item-val'>
+                                <div className='dashboard-card-item-val'>
                                     <div>Pending</div>
-                                    <div>14</div>
+                                    <div>{dashCount.current.pendingCount}</div>
                                 </div>
                             </div>
                         </CardContent>
                     </Card>
                 </div>
             </div>
-            <div className='dashboard-menu'>
-                    <span> View all invoice details</span>
-            </div>
+            <Card sx={{width:"100%"}}>
+               {tableData}
+            </Card>
         </div>
     )
 }
