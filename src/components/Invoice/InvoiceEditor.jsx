@@ -30,10 +30,11 @@ export default function InvoiceEditor() {
                         variant="standard"
                     />
                 </div> */}
-                <div className='invoice-editor-input-field'>
+                <div className='invoice-editor-input-field width-25'>
+                    <TextField  id="standard-basic" label="Company Name" variant="standard"  margin="dense"  />
                     <TextField
                         id="bill-from"
-                        label="Company Name"
+                        label="Company Address"
                         multiline
                         rows={4}
                         variant="standard"

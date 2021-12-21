@@ -30,7 +30,7 @@ export default function Dashboard() {
     const [tableData , setTableData] = useState()
     function getInvoiceData() {
         // http://localhost:8080/api/v1/invoice/all?page=0&size=2
-        let url = process.env.REACT_APP_BASE_URI + "api/v1/invoice/all?page=0&size=10"
+        let url = process.env.REACT_APP_BASE_URI + "api/v1/invoice/all?page=0&size=10&sort=id,desc"
         fetch(url)
             .then(response => response.json())
             .then(data => {

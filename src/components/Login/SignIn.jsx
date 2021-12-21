@@ -8,10 +8,19 @@ export default function SignIn() {
     const login = (event) => {
         event.preventDefault()
         const loginData = {
-            username: username,
+            userName: username,
             password: password
         }
-        console.log(loginData)
+        const url = process.env.REACT_APP_BASE_URI +  'login/'
+        fetch(url , {
+            method: 'post',
+            headers: {
+                'Accept': 'application/json, text/plain, */*',
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify( loginData)
+        }).then(res => res.json())
+            .then(res => console.log(res));
 
     }
     const onChangeHandler = (event, setFunction) => {
