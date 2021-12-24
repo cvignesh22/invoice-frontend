@@ -10,7 +10,7 @@ import { Link } from "react-router-dom";
 export default function Navbar() {
   return (
     <Box sx={{ flexGrow: 1 }}>
-      <AppBar position="static" sx={{ backgroundColor: "#004ba0" }}>
+      <AppBar position="static" sx={{ backgroundColor: "var(--blue)" }}>
         <Toolbar>
           <Typography variant="h5" component="div" sx={{ flexGrow: 1 }}>
             <span color="inherit">Invoice Mangement</span>

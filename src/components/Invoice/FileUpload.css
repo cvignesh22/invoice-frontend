@@ -1,0 +1,22 @@
+.file-upload-container {
+    /* width: 100%; */
+    margin: 16px 15px;
+    /* background-color: red;
+    height: 10px; */
+    margin-left: 0;
+    background: var(--blue);
+    align-items: center;
+    padding: 8px;
+}
+#my-file {
+    display: none;
+}
+.input-file-label {
+    display: block;
+    padding: 14px 15px;
+    color: #fff;
+    font-size: 1em;
+    transition: all .4s;
+    cursor: pointer;
+    padding-left: 15px;
+}

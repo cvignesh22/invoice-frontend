@@ -1,17 +1,21 @@
-import React, { useState } from "react";
+import React, { useState  , useContext } from "react";
 import { Document, Page } from "react-pdf";
 import { pdfjs } from 'react-pdf';
+import { InvoiceDetailsContext } from '../../context/InvoiceDetailsContext';
 pdfjs.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjs.version}/pdf.worker.min.js`;
 
 
 export default function PdfViewer(props) {
+  // eslint-disable-next-line
+  const [ invoiceData , setInvoiceData ] = useContext(InvoiceDetailsContext);
     const [numPages, setNumPages] = useState(null);
-
     function onDocumentLoadSuccess({ numPages }) {
       setNumPages(numPages);
     }
-  
-    const { pdf } = props;
+    let { pdf } = props;
+    if (!!invoiceData.fileData) {
+      pdf = invoiceData.fileData;
+    }
     const scale = 1.4
     // const width = 1000
     return (
@@ -29,4 +33,3 @@ export default function PdfViewer(props) {
       </Document>
     );
   }
-  // {width={width}}

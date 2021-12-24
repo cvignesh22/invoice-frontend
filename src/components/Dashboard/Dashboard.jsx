@@ -68,7 +68,7 @@ export default function Dashboard() {
                             <div className="flex dashboard-card-item-data" >
                                 <div><FormatListBulletedIcon sx={iconClass} /></div>
                                 <div className='dashboard-card-item-val'>
-                                <div className="dash-all">All Invoice</div>
+                                <div className="dash-all">All Invoices</div>
                                 <div>{dashCount.current.allCount}</div>
                                 </div>
                             </div>

@@ -1,9 +1,13 @@
-import React, { useState } from 'react'
+import React, { useState , useContext } from 'react'
+import { AuthContext } from '../../context/AuthContext';
 import './Signin.css'
+
 
 export default function SignIn() {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
+    const [auth, setAuth] = useContext(AuthContext)
+    console.log(auth)
 
     const login = (event) => {
         event.preventDefault()
@@ -20,7 +24,9 @@ export default function SignIn() {
             },
             body: JSON.stringify( loginData)
         }).then(res => res.json())
-            .then(res => console.log(res));
+            .then(res => {
+                console.log(res) ; 
+                setAuth(res)}) ;
 
     }
     const onChangeHandler = (event, setFunction) => {
