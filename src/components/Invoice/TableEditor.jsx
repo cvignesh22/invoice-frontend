@@ -21,7 +21,43 @@ export default function TableEditor() {
             name: "banana",
             category: "fruit",
             color: "yellow"
-        }
+        },
+        {
+            id: "001",
+            name: "apple",
+            category: "fruit",
+            color: "red"
+        },
+        {
+            id: "002",
+            name: "melon",
+            category: "fruit",
+            color: "green"
+        },
+        {
+            id: "003",
+            name: "banana",
+            category: "fruit",
+            color: "yellow"
+        },
+        {
+            id: "001",
+            name: "apple",
+            category: "fruit",
+            color: "red"
+        },
+        {
+            id: "002",
+            name: "melon",
+            category: "fruit",
+            color: "green"
+        },
+        {
+            id: "003",
+            name: "banana",
+            category: "fruit",
+            color: "yellow"
+        },
     ]
     const dataVal = useRef(data)
     const rowData = useRef('')
@@ -75,7 +111,6 @@ export default function TableEditor() {
         setFunction(tableData)
 
     }
-    console.log('here1')
     let tableData = dataVal.current.map((value, index) => {
         return (
             <tr key={index}>

@@ -1,4 +1,4 @@
-import React ,{useRef , useEffect , useState }from 'react';
+import React ,{useRef , useEffect , useState , useContext }from 'react';
 
 import {
     // BrowserRouter as Router,
@@ -8,7 +8,10 @@ import {
     // NavLink,
     useNavigate,
     // createSearchParams,
+    
   } from 'react-router-dom';
+import { InvoiceDetailsContext } from '../../context/InvoiceDetailsContext';
+  
 
 export default function TableData(props) {
     console.log('props.data')
@@ -17,19 +20,22 @@ export default function TableData(props) {
     const navigate = useNavigate();
     const data = props.data
     const dataVal = useRef(data)
+    // eslint-disable-next-line
+    const [invoiceData, setInvoiceData] = useContext(InvoiceDetailsContext);
     // let str = ""
 
     const onSaveHandler = (event  , index) => {
         event.preventDefault();
         // dataVal.current[index] =rowData.current
         // editTableRow(-1  , settableVal)
+        setInvoiceData('');
         console.log(dataVal.current)
         let searchId = dataVal.current[index].id
+
         navigate({
             pathname: '/invoice',
             search: `?id=${searchId}`,
           });
-        // console.log(a)
 
 
     };
@@ -37,7 +43,6 @@ export default function TableData(props) {
 
 
     
-    console.log('here1')
     let tableData = dataVal.current.map((value, index) => {
         return (
             <tr key={index}>

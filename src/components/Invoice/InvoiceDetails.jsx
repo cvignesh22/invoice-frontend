@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useContext } from 'react'
+import React, { useEffect, useContext } from 'react'
 import { sampleBase64pdf } from './PdfSample'
 import PdfViewer from './PdfViewer'
 import './InvoiceDetails.css'
@@ -6,6 +6,9 @@ import InvoiceEditor from './InvoiceEditor'
 import { useSearchParams } from "react-router-dom";
 import { AuthContext } from '../../context/AuthContext'
 // import { AuthContext } from './context/AuthContext'
+import { InvoiceDetailsContext } from '../../context/InvoiceDetailsContext';
+
+
 
 
 
@@ -16,10 +19,32 @@ export default function InvoiceDetails() {
     const [auth, setAuth] = useContext(AuthContext)
     console.log(auth)
         // eslint-disable-next-line 
-    const [invoiceDetail, setinvoiceDetail] = useState([])
+    const [invoiceData, setInvoiceData] = useContext(InvoiceDetailsContext);
+    
     let invoiceId = searchParams.get("id");
+    function getSeachParams() {
+        
+        let url = process.env.REACT_APP_BASE_URI + "api/v1/invoice/" + invoiceId
+        if (!!invoiceId) {
+            fetch(url)
+                .then(response => response.json())
+                .then(data => {
+                    console.log(data)
+                    setInvoiceData(data)
+                    // prevInvoice.current = data;
+                    // setValue();
+
+
+                });
+        }
+    }
     useEffect(() => {
-        // getSeachParams()
+        if(!!invoiceId) {
+            getSeachParams();
+        } else {
+            setInvoiceData('');
+        }
+        // eslint-disable-next-line 
     }, [])
     return (
         <div className="flex invoice-details-container ">
