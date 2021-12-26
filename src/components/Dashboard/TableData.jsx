@@ -20,8 +20,7 @@ export default function TableData(props) {
     const navigate = useNavigate();
     const data = props.data
     const dataVal = useRef(data)
-    // eslint-disable-next-line
-    const [invoiceData, setInvoiceData] = useContext(InvoiceDetailsContext);
+    const [, setInvoiceData] = useContext(InvoiceDetailsContext);
     // let str = ""
 
     const onSaveHandler = (event  , index) => {

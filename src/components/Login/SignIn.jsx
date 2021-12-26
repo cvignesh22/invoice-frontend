@@ -1,12 +1,13 @@
 import React, { useState , useContext } from 'react'
 import { AuthContext } from '../../context/AuthContext';
 import './Signin.css'
-
+import { useNavigate } from 'react-router-dom';
 
 export default function SignIn() {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
-    const [auth, setAuth] = useContext(AuthContext)
+    const [auth,setAuth ,] = useContext(AuthContext)
+    const navigate = useNavigate();
     console.log(auth)
 
     const login = (event) => {
@@ -26,7 +27,13 @@ export default function SignIn() {
         }).then(res => res.json())
             .then(res => {
                 console.log(res) ; 
-                setAuth(res)}) ;
+                localStorage.setItem('auth' , JSON.stringify(res));
+                setAuth(res);
+                navigate({
+                    pathname: '/dashboard'
+                });
+                // window.location.reload()
+            }) ;
 
     }
     const onChangeHandler = (event, setFunction) => {

@@ -6,8 +6,7 @@ pdfjs.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/$
 
 
 export default function PdfViewer(props) {
-  // eslint-disable-next-line
-  const [ invoiceData , setInvoiceData ] = useContext(InvoiceDetailsContext);
+    const [ invoiceData , ] = useContext(InvoiceDetailsContext);
     const [numPages, setNumPages] = useState(null);
     function onDocumentLoadSuccess({ numPages }) {
       setNumPages(numPages);

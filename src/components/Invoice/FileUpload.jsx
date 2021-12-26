@@ -9,7 +9,6 @@ export default function FileUpload() {
     const onChangeHandler = async (event, s) => {
         event.preventDefault();
         fileName = event.target.files[0].name;
-        console.log(event.target.files[0].size/ 1024 / 1024);
         const fileSize = event.target.files[0].size/ 1024 / 1024;
         if (fileSize < 2) {
             let fileData = await toBase64(event.target.files[0])

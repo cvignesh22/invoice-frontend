@@ -10,8 +10,16 @@ export const AuthContextProvider = (props) => {
             token:"",
         }
     )
+    const authcheck = () => {
+        const  auth = JSON.parse(localStorage.getItem("auth"))
+        if (!auth || !auth.token) {
+            return false;
+        } else {
+            return true
+        }
+    }
     return (
-        <AuthContext.Provider value={[authData , setAuthdata ]}> 
+        <AuthContext.Provider value={[authData , setAuthdata , authcheck  ]}> 
             {props.children}
         </AuthContext.Provider>
     )

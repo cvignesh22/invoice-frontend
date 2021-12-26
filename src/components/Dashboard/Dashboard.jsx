@@ -1,4 +1,4 @@
-import React ,{useRef , useEffect , useState }from 'react';
+import React ,{useRef , useEffect , useState , useContext }from 'react';
 import './Dashboard.css'
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
@@ -7,6 +7,8 @@ import GppBadIcon from '@mui/icons-material/GppBad';
 import AddCircleIcon from '@mui/icons-material/AddCircle';
 import HourglassTopIcon from '@mui/icons-material/HourglassTop';
 import FormatListBulletedIcon from '@mui/icons-material/FormatListBulleted';
+import { AuthContext } from '../../context/AuthContext'
+import { useNavigate } from 'react-router-dom';
 import TableData from './TableData';
 export default function Dashboard() {
 
@@ -17,7 +19,8 @@ export default function Dashboard() {
     let newItm = { backgroundColor: "#2196f3", color: "#fff", minWidth: "250px", borderRadius: '20px' }
     let allItm = { backgroundColor: "#3f51b5", color: "#fff", minWidth: "250px", borderRadius: '20px' }
     let pendingItm = { backgroundColor: "#fb8c00", color: "#fff", minWidth: "250px", borderRadius: '20px' }
-
+    const navigate = useNavigate()
+    const [,,authcheck] = useContext(AuthContext)
     const dashData = useRef([])
     const dashCount = useRef({})
     const count = {
@@ -41,11 +44,23 @@ export default function Dashboard() {
                 setTableData(tabdata)
             });
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    function checkAuth() {
+        if (authcheck()) {
+            getInvoiceData()
+        } else {
+            navigate({
+                pathname: '/'
+            });
+        }
+    }
     useEffect(() => {
         // settableVal(tableData)
         // eslint-disable-next-line
-        getInvoiceData()
-    } , [])
+        // getInvoiceData()
+        checkAuth()
+
+    } , [checkAuth])
     return (
         <div className="dashboard-contianer">
             <div className="dashboard-header">
