@@ -59,8 +59,8 @@ export default function Dashboard() {
         // eslint-disable-next-line
         // getInvoiceData()
         checkAuth()
-
-    } , [checkAuth])
+// eslint-disable-next-line 
+    } , [])
     return (
         <div className="dashboard-contianer">
             <div className="dashboard-header">

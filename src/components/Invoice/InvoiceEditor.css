@@ -22,3 +22,29 @@
 .right1 {
     width: 100%;
 }
+.invoice-editor-btn-container {
+    margin: 20px;
+    display: flex;
+    gap: 50px;
+    align-items: center;
+    justify-content: center;
+}
+#invoice-edit-update , #invoice-edit-cancel {
+    display: block;
+    padding: 14px 28px;
+    font-size: 1em;
+    transition: all .4s;
+    border: 0;
+    cursor: pointer;
+}
+#invoice-edit-update  {
+    background-color: #1e90ff;
+    color: #fff;
+}
+#invoice-edit-cancel {
+    background-color: #ccc;
+    color: #000;
+}
+.margin-left-auto {
+    margin-left: auto;
+}

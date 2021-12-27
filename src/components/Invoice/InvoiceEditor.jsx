@@ -12,7 +12,7 @@ import {  format } from 'date-fns'
 
 export default function InvoiceEditor(props) {
     const [invoiceData, setInvoiceData] = useContext(InvoiceDetailsContext);
-
+    const {invoiceId} = props;
     const onChangeHandler = (event, obj) => {
         let val = {...invoiceData};
         val[obj] = event.target.value
@@ -23,33 +23,59 @@ export default function InvoiceEditor(props) {
         let val = {...invoiceData};
         val[obj] = event.target.value
         setInvoiceData(val)
-        // console.log(event.target.value)
 
     };
     const onDateChangeHandler = (event, obj) => {
         let val = {...invoiceData};
         val[obj] = format(event , 'yyyy-MM-dd') 
         setInvoiceData(val)
-        // console.log(typeof event)
+
+    };
+    const onSubmitHandler = (event) => {
+        // console.log(invoiceData)
+        const url = process.env.REACT_APP_BASE_URI +  "api/v1/invoice/" + invoiceData.id;
+        fetch(url , {
+            method: 'put',
+            headers: {
+                'Accept': 'application/json, text/plain, */*',
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(invoiceData )
+        })
+        .then(res => res.json())
+        .then(res => {
+            console.log(res) ; 
+            // window.location.reload()
+        }) ;
+
+
+    };
+    const onCreateHandler = (event) => {
+        console.log("invoiceData create")
+        console.log(invoiceData)
+        const url = process.env.REACT_APP_BASE_URI +  "api/v1/invoice/";
+        fetch(url , {
+            method: 'post',
+            headers: {
+                'Accept': 'application/json, text/plain, */*',
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(invoiceData )
+        })
+        .then(res => res.json())
+        .then(res => {
+                console.log(res) ; 
+            }) ;
+
 
     };
 
-    // function getSeachParams() {
-        
-    //     let url = process.env.REACT_APP_BASE_URI + "api/v1/invoice/" + invoiceId
-    //     if (!!invoiceId) {
-    //         fetch(url)
-    //             .then(response => response.json())
-    //             .then(data => {
-    //                 console.log(data)
-    //                 setInvoiceData(data)
-    //                 prevInvoice.current = data;
-    //                 // setValue();
 
+    const onCancelHandler = (event, obj) => {
+        window.location.reload()
+    };
 
-    //             });
-    //     }
-    // }
+    
     const inVoiceStatuses = [
         {
           value: 'accepted',
@@ -73,7 +99,7 @@ export default function InvoiceEditor(props) {
             <div className="invoice-editor-general">Create / Edit Invoice</div>
             <div className="invoice-editor-company-info flex">
                 <div className='invoice-editor-input-field width-25'>
-                    <TextField id="company-name" label="Company Name" variant="standard" margin="dense"  value={invoiceData.companyName || ''} />
+                    <TextField id="company-name" label="Company Name" variant="standard" margin="dense" onChange={e => onChangeHandler(e, "companyName" )}  value={invoiceData.companyName || ''} />
                     <TextField
                         id="bill-from"
                         label="Company Address"
@@ -81,15 +107,11 @@ export default function InvoiceEditor(props) {
                         rows={4}
                         variant="standard"
                         value={invoiceData.companyAddress || ''}
+                        onChange={e => onChangeHandler(e, "companyAddress" )}
                     />
 
                 </div>
 
-                {/* <div className='invoice-editor-input-field'>
-                    <div>Total Amount </div>
-                    <div>2345</div>
-
-                </div> */}
 
                 <div className="right">
 
@@ -97,8 +119,6 @@ export default function InvoiceEditor(props) {
                     value={invoiceData.invoiceNo || '' } variant="standard" margin="dense" 
                     onChange={e => onChangeHandler(e, "invoiceNo" )} />
                     <br></br>
-                    {/* <TextField className="right" id="invoice-date" label="Invoice Date" variant="standard" margin="dense" 
-                    value={invoiceData.invoiceDate || ''}  /> */}
                     <DesktopDatePicker label="Date desktop" inputFormat="dd/MM/yyyy"  value={invoiceData.invoiceDate} onChange={e => onDateChangeHandler(e, "invoiceDate" )}
                         renderInput={(params) => <TextField margin="dense"  variant="standard" {...params} />} />
                     <br></br>
@@ -122,6 +142,14 @@ export default function InvoiceEditor(props) {
             </div>
             <div className="invoice-editor-item-info">
                 <TableEditor />
+            </div>
+            <div className="invoice-editor-item-info flex" >
+                <TextField  className="margin-left-auto" id="total-amt" label="Total Amount" variant="standard" margin="dense" onChange={e => onChangeHandler(e, "totalAmount" )}  value={invoiceData.totalAmount || ''} />
+            </div>
+            <div className="invoice-editor-btn-container">
+            {!!invoiceId && <button id = "invoice-edit-update" onClick={e => { onSubmitHandler(e) }}> Update</button>  }
+            {!invoiceId && <button id = "invoice-edit-update" onClick={e => { onCreateHandler(e) }}> Create</button>  }
+            <button id = "invoice-edit-cancel" onClick={e => { onCancelHandler(e) }}> Cancel</button>
             </div>
         </div >
         </LocalizationProvider>
