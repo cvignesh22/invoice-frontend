@@ -1,4 +1,5 @@
 import React ,{useRef , useEffect , useState , useContext }from 'react';
+import './TableData.css'
 
 import {
     // BrowserRouter as Router,
@@ -28,7 +29,6 @@ export default function TableData(props) {
         // dataVal.current[index] =rowData.current
         // editTableRow(-1  , settableVal)
         setInvoiceData('');
-        console.log(dataVal.current)
         let searchId = dataVal.current[index].id
 
         navigate({
@@ -53,7 +53,7 @@ export default function TableData(props) {
                 <td>
                     {/* <button onClick={e => { onChangeHandler( e , settableVal , index) }}>Edit</button>
                     <button onClick={e => { onChangeHandler( e , settableVal , index) }}>Delete</button> */}
-                    <button onClick={e => { onSaveHandler( e ,  index) }}>Edit/View</button>
+                    <button className='table-data-view-btn' onClick={e => { onSaveHandler( e ,  index) }}>Edit/View</button>
                 </td>
             </tr>)
     })

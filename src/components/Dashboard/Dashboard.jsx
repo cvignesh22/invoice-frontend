@@ -13,7 +13,7 @@ import TableData from './TableData';
 export default function Dashboard() {
 
 
-    let iconClass = { color: "#fff", fontSize: "3em" }
+    let iconClass = { color: "#fff", fontSize: "2em" }
     let accptBg = { backgroundColor: "#4caf50", color: "#fff", minWidth: "250px", borderRadius: '20px' }
     let rejBg = { backgroundColor: "#f44336", color: "#fff", minWidth: "250px", borderRadius: '20px' }
     let newItm = { backgroundColor: "#2196f3", color: "#fff", minWidth: "250px", borderRadius: '20px' }
@@ -24,24 +24,38 @@ export default function Dashboard() {
     const dashData = useRef([])
     const dashCount = useRef({})
     const count = {
-        allCount : 0,
+        totalCount : 0,
         pendingCount : 0,
-        acceptCount : 0,
-        rejCount : 0
+        acceptedCount : 0,
+        rejectedCount : 0
     }
+
     dashCount.current = count;
     const [tableData , setTableData] = useState()
+    const [invoiceCount , setinvoiceCount] = useState({})
     function getInvoiceData() {
         // http://localhost:8080/api/v1/invoice/all?page=0&size=2
         let url = process.env.REACT_APP_BASE_URI + "api/v1/invoice/all?page=0&size=10&sort=id,desc"
+        let url1 = process.env.REACT_APP_BASE_URI + "api/v1/invoice-count"
+        let tabdata = null;
         fetch(url)
             .then(response => response.json())
             .then(data => {
                 // setdata(data);
                 dashData.current = data.content
                 console.log(data)
-                let tabdata =  <TableData data={dashData.current} />
-                setTableData(tabdata)
+                tabdata =  <TableData data={dashData.current} />
+            }).then(() => {
+                fetch(url1)
+                .then(response => response.json() )
+                .then( data => {
+                    // console.log(data)
+                    if (data.length > 0) {
+                        dashCount.current = data[0]
+                    }
+                    setinvoiceCount(dashCount.current)
+                    setTableData(tabdata);
+                })
             });
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -55,10 +69,8 @@ export default function Dashboard() {
         }
     }
     useEffect(() => {
-        // settableVal(tableData)
-        // eslint-disable-next-line
-        // getInvoiceData()
         checkAuth()
+        
 // eslint-disable-next-line 
     } , [])
     return (
@@ -84,7 +96,7 @@ export default function Dashboard() {
                                 <div><FormatListBulletedIcon sx={iconClass} /></div>
                                 <div className='dashboard-card-item-val'>
                                 <div className="dash-all">All Invoices</div>
-                                <div>{dashCount.current.allCount}</div>
+                                <div>{invoiceCount.totalCount || 0}</div>
                                 </div>
                             </div>
                         </CardContent>
@@ -97,7 +109,7 @@ export default function Dashboard() {
                                 <div><FactCheckIcon sx={iconClass} /></div>
                                 <div className='dashboard-card-item-val'>
                                     <div sx={{ padding: "15px" }}>Accepted</div>
-                                    <div>{dashCount.current.acceptCount}</div>
+                                    <div>{invoiceCount.acceptedCount || 0}</div>
                                 </div>
                             </div>
                         </CardContent>
@@ -110,7 +122,7 @@ export default function Dashboard() {
                                 <div><GppBadIcon sx={iconClass} /></div>
                                 <div className='dashboard-card-item-val'>
                                     <div>Rejected</div>
-                                    <div>{dashCount.current.rejCount}</div>
+                                    <div>{invoiceCount.rejectedCount || 0}</div>
                                 </div>
                             </div>
                         </CardContent>
@@ -123,7 +135,7 @@ export default function Dashboard() {
                                 <div><HourglassTopIcon sx={iconClass} /></div>
                                 <div className='dashboard-card-item-val'>
                                     <div>Pending</div>
-                                    <div>{dashCount.current.pendingCount}</div>
+                                    <div>{invoiceCount.pendingCount || 0}</div>
                                 </div>
                             </div>
                         </CardContent>

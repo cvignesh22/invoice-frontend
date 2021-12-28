@@ -141,7 +141,7 @@ export default function InvoiceEditor(props) {
 
             </div>
             <div className="invoice-editor-item-info">
-                <TableEditor />
+                <TableEditor value = {invoiceData.invoiceItems} />
             </div>
             <div className="invoice-editor-item-info flex" >
                 <TextField  className="margin-left-auto" id="total-amt" label="Total Amount" variant="standard" margin="dense" onChange={e => onChangeHandler(e, "totalAmount" )}  value={invoiceData.totalAmount || ''} />

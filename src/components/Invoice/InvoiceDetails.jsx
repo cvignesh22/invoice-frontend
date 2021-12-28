@@ -1,5 +1,6 @@
 import React, { useEffect, useContext } from 'react'
-import { sampleBase64pdf } from './PdfSample'
+// import { sampleBase64pdf } from './PdfSample'
+import { nopdf } from './NoPdf'
 import PdfViewer from './PdfViewer'
 import './InvoiceDetails.css'
 import InvoiceEditor from './InvoiceEditor'
@@ -55,7 +56,7 @@ export default function InvoiceDetails() {
                 <InvoiceEditor invoiceId={invoiceId} />
             </div>
             <div className="invoice-details-pdf-container">
-                <PdfViewer pdf={sampleBase64pdf} />
+                <PdfViewer pdf={nopdf} />
             </div>
         </div>
     )

@@ -11,8 +11,6 @@ export default function PdfViewer(props) {
     function onDocumentLoadSuccess({ numPages }) {
       setNumPages(numPages);
     }
-    console.log("invoiceData")
-    console.log(invoiceData)
     let { pdf } = props;
     if (!!invoiceData.fileData) {
       pdf = invoiceData.fileData;
