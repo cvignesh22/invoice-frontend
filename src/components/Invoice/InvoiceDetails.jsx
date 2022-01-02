@@ -1,4 +1,4 @@
-import React, { useEffect, useContext } from 'react'
+import React, { useEffect, useContext , useState} from 'react'
 // import { sampleBase64pdf } from './PdfSample'
 import { nopdf } from './NoPdf'
 import PdfViewer from './PdfViewer'
@@ -22,6 +22,8 @@ export default function InvoiceDetails() {
     const [, setInvoiceData] = useContext(InvoiceDetailsContext);
 
     let invoiceId = searchParams.get("id");
+    let invoiceEdit =  <InvoiceEditor invoiceId={invoiceId} />
+    const [editState , seteditState] = useState(invoiceEdit)
     function getSeachParams() {
 
         let url = process.env.REACT_APP_BASE_URI + "api/v1/invoice/" + invoiceId
@@ -30,13 +32,18 @@ export default function InvoiceDetails() {
                 .then(response => response.json())
                 .then(data => {
                     setInvoiceData(data)
+                    seteditState(invoiceEdit)
                 });
+        } else {
+            setInvoiceData({})
         }
     }
     function checkAuth() {
+      
         if (authcheck()) {
             if (!!invoiceId) {
                 getSeachParams();
+                setInvoiceData('');
             } else {
                 setInvoiceData('');
             }
@@ -53,7 +60,7 @@ export default function InvoiceDetails() {
     return (
         <div className="flex invoice-details-container ">
             <div className="inv-form-container">
-                <InvoiceEditor invoiceId={invoiceId} />
+                {editState}
             </div>
             <div className="invoice-details-pdf-container">
                 <PdfViewer pdf={nopdf} />

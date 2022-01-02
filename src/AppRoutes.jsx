@@ -13,6 +13,7 @@ export default function AppRoutes() {
         <Route path="/" element={<Login />} />
         <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/invoice" element={<InvoiceList />} />
+        <Route path="/new" element={<InvoiceList />} />
       </Routes>
     </div>
   )

@@ -32,7 +32,6 @@ export default function InvoiceEditor(props) {
 
     };
     const onSubmitHandler = (event) => {
-        // console.log(invoiceData)
         const url = process.env.REACT_APP_BASE_URI +  "api/v1/invoice/" + invoiceData.id;
         fetch(url , {
             method: 'put',
@@ -51,8 +50,7 @@ export default function InvoiceEditor(props) {
 
     };
     const onCreateHandler = (event) => {
-        console.log("invoiceData create")
-        console.log(invoiceData)
+
         const url = process.env.REACT_APP_BASE_URI +  "api/v1/invoice/";
         fetch(url , {
             method: 'post',
@@ -141,7 +139,7 @@ export default function InvoiceEditor(props) {
 
             </div>
             <div className="invoice-editor-item-info">
-                <TableEditor value = {invoiceData.invoiceItems} />
+                <TableEditor value = {invoiceData.invoiceItems || []}  />
             </div>
             <div className="invoice-editor-item-info flex" >
                 <TextField  className="margin-left-auto" id="total-amt" label="Total Amount" variant="standard" margin="dense" onChange={e => onChangeHandler(e, "totalAmount" )}  value={invoiceData.totalAmount || ''} />

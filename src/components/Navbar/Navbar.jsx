@@ -22,7 +22,7 @@ export default function Navbar() {
               <Link to="dashboard" sx={{textDecoration : "none"}}>
                 <Button sx={{ marginLeft: "20px", color : "white" , textTransform : "none" }}>Dashboard</Button>
               </Link>
-              <Link to="invoice" sx={{textDecoration : "none"}}>
+              <Link to="new" sx={{textDecoration : "none"}}>
                 <Button sx={{ marginLeft: "20px", color : "white" , textTransform : "none" }}>New Invoice</Button>
               </Link>
             </Typography>

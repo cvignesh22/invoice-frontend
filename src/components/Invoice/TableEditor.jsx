@@ -1,65 +1,25 @@
-import React ,{useRef , useEffect , useState }from 'react';
+import React ,{useRef , useEffect , useState ,  
+    // useContext 
+}from 'react';
 import TextField from '@mui/material/TextField';
 
-export default function TableEditor() {
+// import { InvoiceDetailsContext } from '../../context/InvoiceDetailsContext';
+export default function TableEditor(props) {
+    // const [invoiceData, setInvoiceData] = useContext(InvoiceDetailsContext);
+
     const [tableVal, settableVal] = useState([])
     const data = [
         {
-            id: "001",
-            name: "apple",
-            category: "fruit",
-            color: "red"
-        },
-        {
-            id: "002",
-            name: "melon",
-            category: "fruit",
-            color: "green"
-        },
-        {
-            id: "003",
-            name: "banana",
-            category: "fruit",
-            color: "yellow"
-        },
-        {
-            id: "001",
-            name: "apple",
-            category: "fruit",
-            color: "red"
-        },
-        {
-            id: "002",
-            name: "melon",
-            category: "fruit",
-            color: "green"
-        },
-        {
-            id: "003",
-            name: "banana",
-            category: "fruit",
-            color: "yellow"
-        },
-        {
-            id: "001",
-            name: "apple",
-            category: "fruit",
-            color: "red"
-        },
-        {
-            id: "002",
-            name: "melon",
-            category: "fruit",
-            color: "green"
-        },
-        {
-            id: "003",
-            name: "banana",
-            category: "fruit",
-            color: "yellow"
-        },
+            itemName: "",
+            quantity: "",
+            price: "",
+            itemTotal: ""
+        }
     ]
+
     const dataVal = useRef(data)
+    const count = useRef(0)
+    dataVal.current = [...data];
     const rowData = useRef('')
     // let str = ""
     const onChangeHandler = (event, setFunction  , index) => {
@@ -70,24 +30,21 @@ export default function TableEditor() {
         event.preventDefault();
         dataVal.current[index] =rowData.current
         editTableRow(-1  , settableVal)
-
-
     };
     const onRowEdit = (event,field) => {
         rowData.current[field] = event.target.value 
-        console.log(rowData.current)
     };
 
 
     function editTableRow(editindex , setFunction ) {
-        let tableData = dataVal.current.map((value, index) => {
+        tableData = dataVal.current.map((value, index) => {
             if (editindex !== index) {
             return (    
                 <tr key={index}>
-                    <td>{value.id}</td>
-                    <td>{value.name}</td>
-                    <td>{value.category}</td>
-                    <td>{value.color}</td>
+                <td>{value.itemName}</td>
+                <td>{value.quantity}</td>
+                <td>{value.price}</td>
+                <td>{value.itemTotal}</td>
                     <td>
                         <button onClick={e => { onChangeHandler( e , settableVal , index) }}>Edit</button>
                         <button onClick={e => { onChangeHandler( e , settableVal , index) }}>Delete</button>
@@ -97,10 +54,10 @@ export default function TableEditor() {
                 rowData.current = value;
                 return (    
                     <tr key={index}>
-                        <td><TextField className="right"  size="small"  variant="standard" onChange={e => onRowEdit(e, "id")} defaultValue={value.id} /></td>
-                        <td><TextField className="right"  size="small"  variant="standard" onChange={e => onRowEdit(e, "name")} defaultValue={value.name} /></td>
-                        <td><TextField className="right"  size="small"  variant="standard" onChange={e => onRowEdit(e, "category")} defaultValue={value.category} /></td>
-                        <td><TextField className="right"  size="small"  variant="standard" onChange={e => onRowEdit(e, "color")} defaultValue={value.color} /></td>
+                        <td><TextField className="right"  size="small"  variant="standard" onChange={e => onRowEdit(e, "itemName")} defaultValue={value.itemName} /></td>
+                        <td><TextField className="right"  size="small"  variant="standard" onChange={e => onRowEdit(e, "quantity")} defaultValue={value.quantity} /></td>
+                        <td><TextField className="right"  size="small"  variant="standard" onChange={e => onRowEdit(e, "price")} defaultValue={value.price} /></td>
+                        <td><TextField className="right"  size="small"  variant="standard" onChange={e => onRowEdit(e, "itemTotal")} defaultValue={value.itemTotal} /></td>
                         <td>
                             <button onClick={e => { onSaveHandler( e ,  index) }}>Save</button>
                             <button onClick={e => { onSaveHandler( e ,  index) }}>Cancel</button>
@@ -111,23 +68,49 @@ export default function TableEditor() {
         setFunction(tableData)
 
     }
-    let tableData = dataVal.current.map((value, index) => {
-        return (
-            <tr key={index}>
-                <td>{value.id}</td>
-                <td>{value.name}</td>
-                <td>{value.category}</td>
-                <td>{value.color}</td>
-                <td>
-                    <button onClick={e => { onChangeHandler( e , settableVal , index) }}>Edit</button>
-                    <button onClick={e => { onChangeHandler( e , settableVal , index) }}>Delete</button>
-                </td>
-            </tr>)
-    })
+    let renderRows = () => {
+        return  dataVal.current.map((value, index) => {
+            return (
+                <tr key={index}>
+                    <td>{value.itemName}</td>
+                    <td>{value.quantity}</td>
+                    <td>{value.price}</td>
+                    <td>{value.itemTotal}</td>
+                    <td>
+                        <button onClick={e => { onChangeHandler( e , settableVal , index) }}>Edit</button>
+                        <button onClick={e => { onChangeHandler( e , settableVal , index) }}>Delete</button>
+                    </td>
+                </tr>)
+        })
+    
+    }
+    let tableData = renderRows()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    function rerender() {
+    if( !!props.value && props.value.length > 0) {
+
+        dataVal.current = props.value
+        if(count.current <= 2 && props.value.length > 0 ) {
+            dataVal.current = props.value
+            count.current = count.current + 1
+            tableData = renderRows()
+
+            settableVal(tableData)
+          
+        } else if (count <= 2) {
+            count.current = count.current + 1
+            tableData = renderRows()
+            settableVal(tableData)
+          
+            
+        }
+    }
+}
     useEffect(() => {
-        settableVal(tableData)
+        // settableVal(tableData)
+        rerender()
         // eslint-disable-next-line
-    } , [])
+    } , [rerender])
 
 
 
@@ -148,6 +131,7 @@ export default function TableEditor() {
                     {tableVal}
                 </tbody>
             </table>
+            {/* <button onClick={e => { onSaveHandler( e ,  index) }}>Cancel</button> */}
         </div>
     )
 }
