@@ -51,3 +51,12 @@ td, th {
 th {
   background-color: var(--body-color);
 }
+
+.modal-loader {
+  width: 400px;
+  height: 200px;
+  background-color: #ccc;
+  display: flex ;
+  align-items: center;
+  justify-content: center;
+}

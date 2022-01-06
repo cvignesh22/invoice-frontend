@@ -10,6 +10,8 @@ import FormatListBulletedIcon from '@mui/icons-material/FormatListBulleted';
 import { AuthContext } from '../../context/AuthContext'
 import { useNavigate } from 'react-router-dom';
 import TableData from './TableData';
+import Modal from '@mui/material/Modal';
+import CircularProgress from '@mui/material/CircularProgress';
 export default function Dashboard() {
 
 
@@ -33,8 +35,10 @@ export default function Dashboard() {
     dashCount.current = count;
     const [tableData , setTableData] = useState()
     const [invoiceCount , setinvoiceCount] = useState({})
+    const [open, setOpen] = useState(false);
     function getInvoiceData() {
         // http://localhost:8080/api/v1/invoice/all?page=0&size=2
+        setOpen(true)
         let url = process.env.REACT_APP_BASE_URI + "api/v1/invoice/all?page=0&size=10&sort=id,desc"
         let url1 = process.env.REACT_APP_BASE_URI + "api/v1/invoice-count"
         let tabdata = null;
@@ -55,6 +59,7 @@ export default function Dashboard() {
                     }
                     setinvoiceCount(dashCount.current)
                     setTableData(tabdata);
+                    setOpen(false)
                 })
             });
     }
@@ -145,6 +150,11 @@ export default function Dashboard() {
             <Card sx={{width:"100%"}}>
                {tableData}
             </Card>
+            <Modal open={open} sx={{display:"flex" , alignItems: "center" , justifyContent : "center"}}>
+                <div className="modal-loader">
+                   <CircularProgress />
+                </div>
+            </Modal>
         </div>
     )
 }

@@ -97,17 +97,12 @@ export default function InvoiceEditor(props) {
             <div className="invoice-editor-general">Create / Edit Invoice</div>
             <div className="invoice-editor-company-info flex">
                 <div className='invoice-editor-input-field width-25'>
-                    <TextField id="company-name" label="Company Name" variant="standard" margin="dense" onChange={e => onChangeHandler(e, "companyName" )}  value={invoiceData.companyName || ''} />
-                    <TextField
-                        id="bill-from"
-                        label="Company Address"
-                        multiline
-                        rows={4}
-                        variant="standard"
-                        value={invoiceData.companyAddress || ''}
-                        onChange={e => onChangeHandler(e, "companyAddress" )}
-                    />
-
+                    <TextField id="company-name" label="Company Name" 
+                    variant="standard" margin="dense" onChange={e => onChangeHandler(e, "companyName" )}  
+                    value={invoiceData.companyName || ''} />
+                    <TextField id="bill-from" label="Company Address" multiline rows={4} 
+                    variant="standard" value={invoiceData.companyAddress || ''}
+                    onChange={e => onChangeHandler(e, "companyAddress" )} />
                 </div>
 
 

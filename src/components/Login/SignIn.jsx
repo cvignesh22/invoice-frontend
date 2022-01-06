@@ -2,16 +2,21 @@ import React, { useState , useContext } from 'react'
 import { AuthContext } from '../../context/AuthContext';
 import './Signin.css'
 import { useNavigate } from 'react-router-dom';
+import Modal from '@mui/material/Modal';
+import CircularProgress from '@mui/material/CircularProgress';
 
 export default function SignIn() {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const [auth,setAuth ,] = useContext(AuthContext)
+    const [open, setOpen] = useState(false);
+    const [error, setError] = useState(false);
     const navigate = useNavigate();
     console.log(auth)
 
     const login = (event) => {
         event.preventDefault()
+        setOpen(true)
         const loginData = {
             userName: username,
             password: password
@@ -24,15 +29,25 @@ export default function SignIn() {
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify( loginData)
-        }).then(res => res.json())
-            .then(res => {
+        })
+        .then(res => res.json())
+        .then(res => {
+            if(!!res.token) {
                 console.log(res) ; 
                 localStorage.setItem('auth' , JSON.stringify(res));
                 setAuth(res);
+                setOpen(false)
                 navigate({
                     pathname: '/dashboard'
                 });
-                // window.location.reload()
+            } else {
+                setError(true)
+                setOpen(false)
+            }
+            }).catch((err) => {
+                console.log(err)
+                setError(true)
+                setOpen(false)
             }) ;
 
     }
@@ -54,6 +69,7 @@ export default function SignIn() {
                     <input type="password" name="signin-password"
                         autoComplete="on" id="signin-password" onChange={e => onChangeHandler(e, setPassword)} />
                 </div>
+                {error && <div style={{color : "red" , padding: "10px"}}> UserName or Password is incorrect</div> }
                 <div className="signin-input-password">
                     <button id="signin-login-btn" onClick={e => { login(e) }} >Login</button>
                 </div>
@@ -66,6 +82,11 @@ export default function SignIn() {
                     </ul>
                 </div>
             </form>
+            <Modal open={open} sx={{display:"flex" , alignItems: "center" , justifyContent : "center"}}>
+                <div className="modal-loader">
+                   <CircularProgress />
+                </div>
+            </Modal>
         </div>
     )
 }
