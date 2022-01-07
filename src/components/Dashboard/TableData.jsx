@@ -24,36 +24,40 @@ export default function TableData(props) {
     const [, setInvoiceData] = useContext(InvoiceDetailsContext);
     // let str = ""
 
-    const onSaveHandler = (event  , index) => {
+    const onSelectHandler = (event  , index) => {
         event.preventDefault();
-        // dataVal.current[index] =rowData.current
-        // editTableRow(-1  , settableVal)
         setInvoiceData('');
         let searchId = dataVal.current[index].id
-
         navigate({
             pathname: '/invoice',
             search: `?id=${searchId}`,
           });
-
-
     };
-
-
-
+    function setInvoiceStatus(data) {
+        let display = data.toString().toUpperCase();
+        switch (data) {
+            case "accepted":
+                return (<div className='tag-success'>{display}</div>)
+            case "pending":
+                return (<div className='tag-warning'>{display}</div>)
+            case "rejected":
+                return (<div className='tag-failure'>{display}</div>)
+            default:
+                return (<div >{display}</div>)
+        }
+    }
     
     let tableData = dataVal.current.map((value, index) => {
         return (
             <tr key={index}>
                     <td>{value.invoiceNo}</td>
                     <td>{value.companyName}</td>
+                    <td>{value.fileName}</td>
                     <td>{value.invoiceDate}</td>
                     <td>{value.totalAmount}</td>
-                    <td>{value.invoiceStatus}</td>
+                    <td>{setInvoiceStatus(value.invoiceStatus)}</td>
                 <td>
-                    {/* <button onClick={e => { onChangeHandler( e , settableVal , index) }}>Edit</button>
-                    <button onClick={e => { onChangeHandler( e , settableVal , index) }}>Delete</button> */}
-                    <button className='table-data-view-btn' onClick={e => { onSaveHandler( e ,  index) }}>Edit/View</button>
+                    <button className='table-data-view-btn' onClick={e => { onSelectHandler( e ,  index) }}>Edit/View</button>
                 </td>
             </tr>)
     })
@@ -74,9 +78,10 @@ export default function TableData(props) {
                     <tr>
                         <th>Invoice No</th>
                         <th>Company Name</th>
+                        <th>File Name</th>
                         <th>Invoice Date</th>
                         <th>Total</th>
-                        <th>Status</th>
+                        <th style={{width:"6vw"}}>Status</th>
                         <th>Action</th>
                     </tr>
                 </thead>

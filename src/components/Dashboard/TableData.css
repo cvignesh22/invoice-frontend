@@ -5,3 +5,25 @@
     color: #fff;
     cursor: pointer;
 }
+.tag-success {
+    background: rgba(33,181,115,.1);
+    color: #138f5b;
+    padding: 5px;
+    font-size: 12px;
+    text-align: center;
+}
+.tag-warning {
+    color: #ff6e40;
+    background: #fbe9e7;
+    padding: 5px;
+    font-size: 12px;
+    text-align: center;
+}
+.tag-failure {
+    color: #d9505c;
+    background: rgba(255,107,114,.1);
+    padding: 5px;
+    font-size: 12px;
+    text-align: center;
+
+}

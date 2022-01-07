@@ -1,7 +1,7 @@
 import React, { useContext, useEffect} from 'react'
 import TextField from '@mui/material/TextField';
 import './InvoiceEditor.css'
-import TableEditor from './TableEditor';
+// import TableEditor from './TableEditor';
 import { InvoiceDetailsContext } from '../../context/InvoiceDetailsContext';
 import FileUpload from './FileUpload';
 import MenuItem from '@mui/material/MenuItem';
@@ -133,9 +133,9 @@ export default function InvoiceEditor(props) {
 
 
             </div>
-            <div className="invoice-editor-item-info">
+            {/* <div className="invoice-editor-item-info">
                 <TableEditor value = {invoiceData.invoiceItems || []}  />
-            </div>
+            </div> */}
             <div className="invoice-editor-item-info flex" >
                 <TextField  className="margin-left-auto" id="total-amt" label="Total Amount" variant="standard" margin="dense" onChange={e => onChangeHandler(e, "totalAmount" )}  value={invoiceData.totalAmount || ''} />
             </div>

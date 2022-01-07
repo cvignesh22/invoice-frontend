@@ -4,7 +4,7 @@ import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import FactCheckIcon from '@mui/icons-material/FactCheck';
 import GppBadIcon from '@mui/icons-material/GppBad';
-import AddCircleIcon from '@mui/icons-material/AddCircle';
+// import AddCircleIcon from '@mui/icons-material/AddCircle';
 import HourglassTopIcon from '@mui/icons-material/HourglassTop';
 import FormatListBulletedIcon from '@mui/icons-material/FormatListBulleted';
 import { AuthContext } from '../../context/AuthContext'
@@ -18,7 +18,7 @@ export default function Dashboard() {
     let iconClass = { color: "#fff", fontSize: "2em" }
     let accptBg = { backgroundColor: "#4caf50", color: "#fff", minWidth: "250px", borderRadius: '20px' }
     let rejBg = { backgroundColor: "#f44336", color: "#fff", minWidth: "250px", borderRadius: '20px' }
-    let newItm = { backgroundColor: "#2196f3", color: "#fff", minWidth: "250px", borderRadius: '20px' }
+    // let newItm = { backgroundColor: "#2196f3", color: "#fff", minWidth: "250px", borderRadius: '20px' }
     let allItm = { backgroundColor: "#3f51b5", color: "#fff", minWidth: "250px", borderRadius: '20px' }
     let pendingItm = { backgroundColor: "#fb8c00", color: "#fff", minWidth: "250px", borderRadius: '20px' }
     const navigate = useNavigate()
@@ -84,7 +84,7 @@ export default function Dashboard() {
                 Invoice Details
             </div>
             <div className="dashboard-menu">
-                <div className='dashboard-item'>
+                {/* <div className='dashboard-item'>
                     <Card sx={newItm}>
                         <CardContent>
                             <div className="flex dashboard-card-item-data" >
@@ -93,7 +93,7 @@ export default function Dashboard() {
                             </div>
                         </CardContent>
                     </Card>
-                </div>
+                </div> */}
                 <div className='dashboard-item'>
                     <Card sx={allItm}>
                         <CardContent>

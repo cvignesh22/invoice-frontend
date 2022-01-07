@@ -49,7 +49,7 @@ td, th {
   background-color: #dddddd;
 } */
 th {
-  background-color: var(--body-color);
+  /* background-color: var(--body-color); */
 }
 
 .modal-loader {
