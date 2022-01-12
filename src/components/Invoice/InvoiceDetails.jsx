@@ -9,6 +9,8 @@ import { AuthContext } from '../../context/AuthContext'
 // import { AuthContext } from './context/AuthContext'
 import { InvoiceDetailsContext } from '../../context/InvoiceDetailsContext';
 import { useNavigate } from 'react-router-dom';
+import Modal from '@mui/material/Modal';
+import CircularProgress from '@mui/material/CircularProgress';
 
 
 
@@ -20,6 +22,7 @@ export default function InvoiceDetails() {
     const [,,authcheck] = useContext(AuthContext)
     let [searchParams] = useSearchParams();
     const [, setInvoiceData] = useContext(InvoiceDetailsContext);
+    const [open, setOpen] = useState(false);
 
     let invoiceId = searchParams.get("id");
     let invoiceEdit =  <InvoiceEditor invoiceId={invoiceId} />
@@ -28,9 +31,11 @@ export default function InvoiceDetails() {
 
         let url = process.env.REACT_APP_BASE_URI + "api/v1/invoice/" + invoiceId
         if (!!invoiceId) {
+            setOpen(true)
             fetch(url)
                 .then(response => response.json())
                 .then(data => {
+                    setOpen(false)
                     setInvoiceData(data)
                     seteditState(invoiceEdit)
                 });
@@ -65,6 +70,11 @@ export default function InvoiceDetails() {
             <div className="invoice-details-pdf-container">
                 <PdfViewer pdf={nopdf} />
             </div>
+            <Modal open={open} sx={{display:"flex" , alignItems: "center" , justifyContent : "center"}}>
+                <div className="modal-loader">
+                   <CircularProgress />
+                </div>
+            </Modal>
         </div>
     )
 }

@@ -37,13 +37,13 @@ export default function TableData(props) {
         let display = data.toString().toUpperCase();
         switch (data) {
             case "accepted":
-                return (<div className='tag-success'>{display}</div>)
+                return (<div className='tag-success'><b>{display}</b></div>)
             case "pending":
-                return (<div className='tag-warning'>{display}</div>)
+                return (<div className='tag-warning'><b>{display}</b></div>)
             case "rejected":
-                return (<div className='tag-failure'>{display}</div>)
+                return (<div className='tag-failure'><b>{display}</b></div>)
             default:
-                return (<div >{display}</div>)
+                return (<div ><b>{display}</b></div>)
         }
     }
     
